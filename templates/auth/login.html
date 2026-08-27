@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+
+            font-family: "Inter", "Segoe UI", sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 10% 15%,
+                    rgba(99, 102, 241, 0.22),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 85%,
+                    rgba(6, 182, 212, 0.18),
+                    transparent 30%
+                ),
+                #f7f9fc;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 42px;
+
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+
+            box-shadow:
+                0 25px 60px rgba(30, 41, 80, 0.12);
+        }
+
+        /* Header */
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-icon {
+            width: 60px;
+            height: 60px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 18px;
+
+            border-radius: 18px;
+
+            background: linear-gradient(
+                135deg,
+                #6366f1,
+                #06b6d4
+            );
+
+            color: white;
+            font-size: 25px;
+
+            box-shadow:
+                0 10px 25px rgba(79, 70, 229, 0.2);
+        }
+
+        .login-header h1 {
+            color: #172033;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: #7b8499;
+            font-size: 14px;
+        }
+
+        /* Form */
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        label {
+            color: #374151;
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+
+            border: 1.5px solid #dfe4ef;
+            border-radius: 11px;
+
+            background: rgba(255, 255, 255, 0.9);
+
+            color: #1e293b;
+            font-family: inherit;
+            font-size: 14px;
+
+            outline: none;
+
+            transition: all 0.25s ease;
+        }
+
+        input::placeholder {
+            color: #a3acbd;
+        }
+
+        input:hover {
+            border-color: #a5b4fc;
+        }
+
+        input:focus {
+            border-color: #6366f1;
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Remember / forgot */
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-top: -4px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .remember input {
+            width: auto;
+            accent-color: #6366f1;
+        }
+
+        .forgot {
+            color: #6366f1;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .forgot:hover {
+            color: #0891b2;
+        }
+
+        /* Login button */
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+
+            border: none;
+            border-radius: 11px;
+
+            background: linear-gradient(
+                135deg,
+                #6366f1,
+                #06b6d4
+            );
+
+            color: white;
+
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 650;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 22px rgba(79, 70, 229, 0.2);
+
+            transition: all 0.25s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 28px rgba(79, 70, 229, 0.28);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Register */
+
+        .register {
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: #7b8499;
+            font-size: 13px;
+        }
+
+        .register a {
+            color: #6366f1;
+            font-weight: 650;
+            text-decoration: none;
+        }
+
+        .register a:hover {
+            color: #0891b2;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 500px) {
+            .login-card {
+                padding: 30px 22px;
+                border-radius: 20px;
+            }
+
+            .login-header h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-card">
+
+        <div class="login-header">
+            <div class="login-icon">
+                🔐
+            </div>
+
+            <h1>Welcome Back</h1>
+            <p>Sign in to your student portal</p>
+            {%for message in messages%}
+            <p>{{message}}</p>
+            {%endfor%}
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="username">Username</label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+
+            <div class="form-options">
+                <label class="remember">
+                    <input type="checkbox" name="remember">
+                    Remember me
+                </label>
+
+                <a href="#" class="forgot">
+                    Forgot password?
+                </a>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Sign In
+            </button>
+        </form>
+
+        <p class="register">
+            Don't have an account?
+            <a href="{%url 'custom_create_user'%}">Create one</a>
+        </p>
+
+    </div>
+
+</body>
+</html>

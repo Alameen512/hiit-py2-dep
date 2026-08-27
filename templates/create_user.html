@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button{
+            padding: 0.5rem;
+            background-color: crimson;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all ease-in-out 0.2s;
+            margin-right: 2rem;
+        }
+        button:hover{
+            background-color: black;
+            transform: scale(1.1);
+        }
+        h1{
+            color: blue;
+        }
+        .message{
+            padding: 5px;
+            background-color: blue;
+            text-align: center;
+            font-size: large;
+            font-weight: 900;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        {% for message in messages%}
+        <p class="message"> {{message}}</p>
+        {% endfor %}
+    <h1>Create Account</h1>
+    <h2>{{form_name}}</h2>
+    <form action="" method="POST">
+        
+        {% csrf_token %} <br />
+        {{form}}
+        <button type="submit">Create Account</button>
+    </form>
+    </div>
+    
+</body>
+</html>
