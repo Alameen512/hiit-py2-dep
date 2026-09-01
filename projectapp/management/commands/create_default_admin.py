@@ -1,5 +1,6 @@
 from django.core.management import BaseCommand
 from django.contrib.auth.models import User
+from decouple import config
 
 class Command(BaseCommand):
     help = "Helps to create the default admin to handle things"
